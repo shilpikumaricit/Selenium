@@ -4,7 +4,6 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading;
 
 namespace Selenium
@@ -46,7 +45,6 @@ namespace Selenium
             //btnAdd
             driver.FindElement(By.Id("btnAdd")).Click();
 
-
             //Select Role
             var selectElement = new SelectElement(driver.FindElement(By.Id("systemUser_userType")));
             //select by value
@@ -54,8 +52,6 @@ namespace Selenium
 
             // Fill Employee Name
             driver.FindElement(By.Id("systemUser_employeeName_empName")).SendKeys("Linda Anderson");
-
-          
 
             // Fill UserName
             driver.FindElement(By.Id("systemUser_userName")).SendKeys(UserName);
@@ -88,7 +84,6 @@ namespace Selenium
 
             //Verify the user Id is saved
             Assert.True(SearchUsername(UserName));
-
 
             //Delete user
             driver.FindElement(By.XPath("//input[contains(@name,'chkSelectRow[]')]")).Click();
