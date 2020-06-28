@@ -4,6 +4,7 @@ using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading;
 
 namespace Selenium
@@ -12,7 +13,7 @@ namespace Selenium
     {
         private static IWebDriver driver = new ChromeDriver();
 
-        private static string UserName = "Shilpi_01";
+        private static string UserName = "Shilpi_04";
 
         static void Main(string[] args)
         {
@@ -52,7 +53,9 @@ namespace Selenium
             selectElement.SelectByText("Admin");
 
             // Fill Employee Name
-            driver.FindElement(By.Id("systemUser_employeeName_empName")).SendKeys("Jasmine Morgan");
+            driver.FindElement(By.Id("systemUser_employeeName_empName")).SendKeys("Linda Anderson");
+
+          
 
             // Fill UserName
             driver.FindElement(By.Id("systemUser_userName")).SendKeys(UserName);
@@ -88,16 +91,16 @@ namespace Selenium
 
 
             //Delete user
-            driver.FindElement(By.Id("searchSystemUser_userName")).SendKeys(UserName);
-            driver.FindElement(By.Id("searchBtn")).Click();
+            driver.FindElement(By.XPath("//input[contains(@name,'chkSelectRow[]')]")).Click();
+            driver.FindElement(By.XPath("//input[contains(@id,'btnDelete')]")).Click();
 
-            driver.FindElement(By.Id("ohrmList_chkSelectRecord_18")).Click();
-            driver.FindElement(By.Id("btnDelete")).Click();
-
-            Assert.True(SearchUsername(UserName));
+            driver.FindElement(By.Id("dialogDeleteBtn")).Click();
+            //Verify the user Id is Deleted
+            Assert.False(SearchUsername(UserName));
 
         }
 
+       
         public static void Cleanup()
         {
             driver.Quit();
@@ -119,7 +122,6 @@ namespace Selenium
                 {
                     foreach (var elemTd in lstTdElem)
                     {
-                        // "\t\t" for Tab Space
                         string strRowData =  elemTd.Text;
                         Console.WriteLine("UserName:: " + strRowData);
                         Console.WriteLine(strRowData);
